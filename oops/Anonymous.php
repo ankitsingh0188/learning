@@ -20,7 +20,7 @@ $message = function() use ($user) {
 
 $message(); //output - hello Peter
 
-$addition = function($arg1, $arg2){
+$addition = function($arg1, $arg2) {
 	return $arg1 + $arg2;
 };
 
