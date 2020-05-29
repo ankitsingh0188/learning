@@ -2,7 +2,14 @@
 
 namespace Model\School;
 
-class Classes extends School {
+use Database\ConnectDb;
+
+/**
+ * Class Classes
+ *
+ * @package Model\School
+ */
+class Classes {
 
   /**
    * Class id.
@@ -12,10 +19,19 @@ class Classes extends School {
   protected $id;
 
   /**
+   * Database object.
+   *
+   * @var object
+   */
+  protected $db;
+
+  /**
    * Classes constructor.
    */
   public function __construct() {
-    parent::__construct();
+    // Connecting to database.
+    $connection = new ConnectDb();
+    $this->db = $connection->connectToDatabase();
   }
 
   /**
@@ -65,8 +81,7 @@ class Classes extends School {
       if (!$result = mysqli_query($this->db, $query)) {
         return mysqli_error($this->db);
       }
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       return $e->getMessage();
     }
     mysqli_close($this->db);
@@ -88,8 +103,7 @@ class Classes extends School {
     AND section  = '{$section}'";
     try {
       $result = $this->db->query($query);
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       return $e->getMessage();
     }
     if ($result->num_rows > 0) {
@@ -102,18 +116,17 @@ class Classes extends School {
   /**
    * @return array|string|void
    */
-  public function listClassesBySchool() {
+  public function listClassesBySchool($school_id) {
     $output = [];
     try {
-      $query = "SELECT id, name, subjects, section FROM classes WHERE school_id = {$this->getSchoolId()}";
+      $query = "SELECT id, name, subjects, section FROM classes WHERE school_id = {$school_id}";
       $result = $this->db->query($query);
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       return $e->getMessage();
     }
     if ($result->num_rows > 0) {
       $i = 0;
-      while($row = $result->fetch_assoc()) {
+      while ($row = $result->fetch_assoc()) {
         $output[$i]['id'] = $row['id'];
         $output[$i]['name'] = $row['name'];
         $output[$i]['section'] = $row['section'];
@@ -128,13 +141,12 @@ class Classes extends School {
   /**
    * @return array|string|void
    */
-  public function listClassSubjects() {
+  public function listSubjectsByClass() {
     $output = [];
     $query = "SELECT * FROM classes WHERE id = {$this->id}";
     try {
       $result = $this->db->query($query);
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       return $e->getMessage();
     }
     if ($result->num_rows > 0) {
@@ -144,6 +156,29 @@ class Classes extends School {
     }
 
     return $output;
+  }
+
+  /**
+   * Fetch class information.
+   *
+   * @return array|bool|string|void|null
+   */
+  public function fetchClassInfo() {
+    try {
+      $query = "SELECT sc.id, sc.name, sc.board, sc.medium
+        FROM schools AS sc
+        WHERE sc.id = {$this->getClassId()}";
+      $result = $this->db->query($query);
+    } catch (\Exception $e) {
+      return $e->getMessage();
+    }
+    if ($result->num_rows > 0) {
+      $result = $result->fetch_assoc();
+
+      return $result;
+    }
+
+    return FALSE;
   }
 
 }

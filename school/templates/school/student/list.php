@@ -1,17 +1,17 @@
 <?php
 Helper\Helper::validateSession();
-$student = new Model\School\Student();
-$school_info = $student->fetchSchoolInfo();
+$list_students = [];
+$school = new Model\School\School();
+$school_info = $school->fetchSchoolInfoByStudentId();
 if ($school_info) {
-  $list_students = $student->setSchoolId($school_info['id'])
-    ->listStudents();
-  $student->setSchoolName($school_info['name']);
+  $student = new Model\School\Student();
+  $list_students = $student->listStudentsBySchool($school_info['id']);
 }
 ?>
 <div class="row">
   <div class="col-md-12">
     <div class="card alert-warning">
-      <div class="card-header"><?php echo $student->getSchoolName();?> - List of
+      <div class="card-header"><?php echo $school_info['name'];?> - List of
         Students</div>
     </div>
     &nbsp;

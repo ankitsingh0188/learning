@@ -2,7 +2,12 @@
 
 namespace Model\School;
 
-class Teacher extends School {
+/**
+ * Class Teacher
+ *
+ * @package Model\School
+ */
+class Teacher {
 
   /**
    * Teacher Id.

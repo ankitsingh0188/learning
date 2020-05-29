@@ -2,7 +2,7 @@
 Helper\Helper::validateSession();
 $student = new Model\School\Student();
 $student->setStudentId($_SESSION['uid']);
-$info = $student->fetchStudentInfoById();
+$info = $student->fetchStudentInfo();
 ?>
   <div class="row">
     <div class="col-md-12">

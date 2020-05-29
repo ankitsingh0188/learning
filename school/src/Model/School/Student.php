@@ -2,22 +2,60 @@
 
 namespace Model\School;
 
+use Model\School\Person;
+use Database\ConnectDb;
 use Model\Auth\Auth;
 
-class Student extends Classes {
+/**
+ * Class Student
+ *
+ * @package Model\School
+ */
+class Student implements Person {
 
   /**
-   * Student Id.
+   * Student id.
    *
    * @var int
    */
   protected $id;
 
   /**
+   * Student name.
+   *
+   * @var string
+   */
+  private $name;
+
+  /**
+   * Student age.
+   *
+   * @var int
+   */
+  private $age;
+
+  /**
+   * Student gender.
+   *
+   * @var string
+   */
+  private $gender;
+
+
+  /**
+   * Database object.
+   *
+   * @var object
+   */
+  protected $db;
+
+  /**
    * Student constructor.
    */
   function __construct() {
-    parent::__construct();
+    // Connecting to database.
+    $connection = new ConnectDb();
+    $this->db = $connection->connectToDatabase();
   }
 
   /**
@@ -43,6 +81,36 @@ class Student extends Classes {
    */
   public function getStudentId() {
     return $this->id;
+  }
+
+  /**
+   * @return string
+   */
+  public function name() {
+    $query = "SELECT name from students where id = {$this->id} LIMIT 1";
+    $this->name = 'name';
+
+    return $this->name();
+  }
+
+  /**
+   * @return string
+   */
+  public function age() {
+    $query = "SELECT age from students where id = {$this->id} LIMIT 1";
+    $this->age = 'age';
+
+    return $this->age();
+  }
+
+  /**
+   * @return string
+   */
+  public function gender() {
+    $query = "SELECT gender from students where id = {$this->id} LIMIT 1";
+    $this->gender = 'gender';
+
+    return $this->gender();
   }
 
   /**
@@ -111,13 +179,14 @@ class Student extends Classes {
    * return array
    *   Student array.
    */
-  public function fetchStudentInfoById() {
+  public function fetchStudentInfo() {
     $query = "SELECT st.id, st.gender, st.age, st.name, st.email, st.mobile, st.address, 
     sc.name AS school_name,
     cl.name as class_name, cl.subjects, cl.section
     from students AS st
-    LEFT JOIN schools AS sc ON st.school_id=sc.id
-    LEFT JOIN classes AS cl ON st.class_id=cl.id WHERE st.id = {$this->id}";
+    LEFT JOIN schools AS sc ON st.school_id = sc.id
+    LEFT JOIN classes AS cl ON st.class_id = cl.id
+    WHERE st.id = {$this->id}";
     try {
       $result = $this->db->query($query);
     }
@@ -157,15 +226,15 @@ class Student extends Classes {
     return FALSE;
   }
 
-  public function listStudents() {
+  public function listStudentsBySchool($school_id) {
     $output = [];
     $query = "SELECT st.id, st.name, st.email, st.mobile, st.address, st.age, st.gender,
     sc.name AS school_name, 
     cl.name as class_name, cl.subjects, cl.section
     from students AS st
-    LEFT JOIN schools AS sc ON st.school_id=sc.id
-    LEFT JOIN classes AS cl ON st.class_id=cl.id
-    WHERE sc.id = {$this->getSchoolId()}";
+    LEFT JOIN schools AS sc ON st.school_id = sc.id
+    LEFT JOIN classes AS cl ON st.class_id = cl.id
+    WHERE sc.id = {$school_id}";
     try {
       $result = $this->db->query($query);
     }
@@ -181,7 +250,7 @@ class Student extends Classes {
     return $output;
   }
 
-  public function studentsSubjectWise($subjects) {
+  public function ListStudentsBySubject($subjects, $school_id) {
     $output = [];
     try {
       $query = "SELECT st.id, st.name, st.email, st.mobile, st.address, st.age, st.gender,
@@ -190,7 +259,7 @@ class Student extends Classes {
       from students AS st
       LEFT JOIN schools AS sc ON st.school_id=sc.id
       LEFT JOIN classes AS cl ON st.class_id=cl.id
-      WHERE cl.subjects LIKE '%maths%' AND sc.id = {$this->getSchoolId()}";
+      WHERE cl.subjects LIKE '%{$subjects}%' AND sc.id = {$school_id}";
       $result = $this->db->query($query);
     }
     catch (\Exception $e) {

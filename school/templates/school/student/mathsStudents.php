@@ -1,12 +1,9 @@
 <?php
-$students = new Model\School\Student();
-$school_info = $students->fetchSchoolInfo();
+$school = new Model\School\School();
+$school_info = $school->fetchSchoolInfoByStudentId();
 if ($school_info) {
-  // Set school id.
-  $list_students = $students->setSchoolId($school_info['id'])
-    ->studentsSubjectWise(['maths']);
-  // Set school name.
-  $students->setSchoolName($school_info['name']);
+  $students = new Model\School\Student();
+  $list_students = $students->ListStudentsBySubject('maths', $school_info['id']);
 }
 echo '<pre>';
 print_r($list_students);

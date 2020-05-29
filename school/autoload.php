@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/src/Helper.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/src/Helper.php';
 
 spl_autoload_register(function($className) {
   $file = __DIR__ . '\\src\\' . $className . '.php';

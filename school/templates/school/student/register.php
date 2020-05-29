@@ -1,7 +1,7 @@
 <?php
 
-$student = new Model\School\Student();
-$list_schools = $student->listSchools();
+$schools = new Model\School\School();
+$list_schools = $schools->listSchools();
 
 if ($_POST && $_POST['submit'] == 'student_register') {
   unset($_POST['submit']);
@@ -9,6 +9,7 @@ if ($_POST && $_POST['submit'] == 'student_register') {
   $_POST = array_map('trim', array_filter($_POST));
   $_POST['password'] = md5($_POST['password']);
   $class = 'danger';
+  $student = new Model\School\Student();
   $register = $student->register($_POST);
   if ($register == 1) {
     $_POST = [];

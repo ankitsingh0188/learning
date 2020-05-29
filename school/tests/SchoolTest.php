@@ -10,10 +10,12 @@ class SchoolTest extends TestCase {
    */
   private $school;
 
+  //  Run when test case starts.
   protected function setUp(): void {
     $this->school = new School();
   }
 
+  //  Run when test case ends.
   protected function tearDown(): void {
    $this->school = NULL;
   }

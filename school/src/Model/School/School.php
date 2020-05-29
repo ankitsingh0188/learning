@@ -4,6 +4,11 @@ namespace Model\School;
 
 use Database\ConnectDb;
 
+/**
+ * Class School
+ *
+ * @package Model\School
+ */
 class School {
 
   /**
@@ -163,14 +168,40 @@ class School {
   }
 
   /**
+   * Fetch school info via student id.
+   *
    * @return array|string|void
    */
-  public function fetchSchoolInfo() {
+  public function fetchSchoolInfoByStudentId() {
     try {
       $query = "SELECT sc.id, sc.name, sc.board, sc.medium
         FROM students AS st
         LEFT JOIN schools AS sc ON st.school_id = sc.id
         WHERE st.id = {$_SESSION['uid']}";
+      $result = $this->db->query($query);
+    }
+    catch (\Exception $e) {
+      return $e->getMessage();
+    }
+    if ($result->num_rows > 0) {
+      $result = $result->fetch_assoc();
+
+      return $result;
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * Fetch school information.
+   *
+   * @return array|bool|string|void|null
+   */
+  public function fetchSchoolInfo() {
+    try {
+      $query = "SELECT sc.id, sc.name, sc.board, sc.medium
+        FROM schools AS sc
+        WHERE sc.id = {$this->getSchoolId()}";
       $result = $this->db->query($query);
     }
     catch (\Exception $e) {
