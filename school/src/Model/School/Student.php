@@ -2,8 +2,8 @@
 
 namespace Model\School;
 
+use Model\Database\ConnectDb;
 use Model\School\Person;
-use Database\ConnectDb;
 use Model\Auth\Auth;
 
 /**
@@ -54,8 +54,7 @@ class Student implements Person {
    */
   function __construct() {
     // Connecting to database.
-    $connection = new ConnectDb();
-    $this->db = $connection->connectToDatabase();
+    $this->db = ConnectDb::getInstance()->connectToDatabase();
   }
 
   /**
@@ -86,7 +85,7 @@ class Student implements Person {
   /**
    * @return string
    */
-  public function name() {
+  public function getName() {
     $query = "SELECT name from students where id = {$this->id} LIMIT 1";
     $this->name = 'name';
 
@@ -96,7 +95,7 @@ class Student implements Person {
   /**
    * @return string
    */
-  public function age() {
+  public function getAge() {
     $query = "SELECT age from students where id = {$this->id} LIMIT 1";
     $this->age = 'age';
 
@@ -106,12 +105,13 @@ class Student implements Person {
   /**
    * @return string
    */
-  public function gender() {
+  public function getGender() {
     $query = "SELECT gender from students where id = {$this->id} LIMIT 1";
     $this->gender = 'gender';
 
     return $this->gender();
   }
+
 
   /**
    * Registration of Student.
@@ -226,6 +226,11 @@ class Student implements Person {
     return FALSE;
   }
 
+  /**
+   * @param $school_id
+   *
+   * @return array|string|void
+   */
   public function listStudentsBySchool($school_id) {
     $output = [];
     $query = "SELECT st.id, st.name, st.email, st.mobile, st.address, st.age, st.gender,
@@ -250,6 +255,12 @@ class Student implements Person {
     return $output;
   }
 
+  /**
+   * @param $subjects
+   * @param $school_id
+   *
+   * @return array|string|void
+   */
   public function ListStudentsBySubject($subjects, $school_id) {
     $output = [];
     try {

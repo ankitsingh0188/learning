@@ -2,7 +2,7 @@
 
 namespace Model\School;
 
-use Database\ConnectDb;
+use Model\Database\ConnectDb;
 
 /**
  * Class Classes
@@ -30,8 +30,7 @@ class Classes {
    */
   public function __construct() {
     // Connecting to database.
-    $connection = new ConnectDb();
-    $this->db = $connection->connectToDatabase();
+    $this->db = ConnectDb::getInstance()->connectToDatabase();
   }
 
   /**

@@ -2,7 +2,7 @@
 
 namespace Model\School;
 
-use Database\ConnectDb;
+use Model\Database\ConnectDb;
 
 /**
  * Class School
@@ -37,8 +37,7 @@ class School {
    */
   function __construct() {
     // Connecting to database.
-    $connection = new ConnectDb();
-    $this->db = $connection->connectToDatabase();
+    $this->db = ConnectDb::getInstance()->connectToDatabase();
   }
 
   /**
@@ -144,6 +143,9 @@ class School {
     return FALSE;
   }
 
+  /**
+   * @return array|string|void
+   */
   public function listSchools() {
     $output = [];
     try {

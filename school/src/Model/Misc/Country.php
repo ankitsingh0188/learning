@@ -2,8 +2,7 @@
 
 namespace Model\Misc;
 
-use Database\ConnectDb;
-
+use Model\Database\ConnectDb;
 class Country {
 
   protected $id;
@@ -13,8 +12,7 @@ class Country {
    */
   public function __construct() {
     // Connecting to database.
-    $connection = new ConnectDb();
-    $this->db = $connection->connectToDatabase();
+    $this->db = ConnectDb::getInstance()->connectToDatabase();
     $this->id = '';
   }
 

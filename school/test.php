@@ -5,15 +5,14 @@ use Model\Notifications\Android;
 use Model\Notifications\iOS;
 use Model\Notifications\Email;
 
-//$aa = new Model\Notifications\Context(new iOS);
+//$aa = new Model\Strategy\Context(new iOS);
 
-//$aa = new Model\Notifications\Context(new Android);
+//$aa = new Model\Strategy\Context(new Android);
 
 $aa = new Model\Notifications\Context(new Email);
 
-
-
-$android = $aa->execute('10');
+$android = $aa->to('10');
+$android = $aa->message('10');
 echo '<pre>';
 print_r($android);
 die;

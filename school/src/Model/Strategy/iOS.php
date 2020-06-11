@@ -1,13 +1,13 @@
 <?php
 
-namespace Model\Notifications;
+namespace Model\Strategy;
 
-use Model\Notifications\Strategy;
+use Model\Strategy\Strategy;
 
 /**
  * Class iOS
  *
- * @package Model\Notifications
+ * @package Model\Strategy
  */
 class iOS implements Strategy {
 
@@ -17,7 +17,7 @@ class iOS implements Strategy {
    * @return mixed|void
    */
   public function execute($number) {
-    print 'iOS Notifications';
+    print 'iOS Strategy';
   }
 
 }
