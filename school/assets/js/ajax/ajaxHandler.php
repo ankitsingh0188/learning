@@ -38,9 +38,10 @@ elseif (isset($_POST) && !empty($_POST['state_id'])) {
 
 // List classes via school.
 elseif (isset($_POST) && !empty($_POST['school_id'])) {
+  $school = new Model\School\School();
+  $school->setSchoolId($_POST['school_id']);
   $classes = new Model\School\Classes();
-  $classes->setSchoolId($_POST['school_id']);
-  $list_classes = $classes->listClassesBySchool();
+  $list_classes = $classes->listClassesBySchool($school->getSchoolId());
 
   ?>
   <option value="">Select Class</option>
@@ -58,6 +59,6 @@ elseif (isset($_POST) && !empty($_POST['school_id'])) {
 elseif (isset($_POST) && !empty($_POST['class_id'])) {
   $classes = new Model\School\Classes();
   $classes->setClassId($_POST['class_id']);
-  $list_subjects = $classes->listClassSubjects();
+  $list_subjects = $classes->listSubjectsByClass();
   echo $list_subjects[0]["subjects"];
 }

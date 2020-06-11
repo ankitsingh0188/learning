@@ -2,7 +2,6 @@
 session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/autoload.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/config/config.php';
 
 // Create a new router instance.
 $router = new Routes\Routes($_SERVER);

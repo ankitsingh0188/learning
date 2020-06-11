@@ -39,33 +39,33 @@ class Teacher {
   }
 
   /**
-   * Fetch Teacher id.
-   *
-   * @return int
-   *   Teacher id.
+   * @return string
    */
-  public function getTeacherId() {
-    return $this->id;
+  public function name() {
+    $query = "SELECT name from students where id = {$this->id} LIMIT 1";
+    $this->name = 'name';
+
+    return $this->name();
   }
 
-  public function listTeachers() {
+  /**
+   * @return string
+   */
+  public function age() {
+    $query = "SELECT age from students where id = {$this->id} LIMIT 1";
+    $this->age = 'age';
 
+    return $this->age();
   }
 
-  public function listClassTeachers() {
+  /**
+   * @return string
+   */
+  public function gender() {
+    $query = "SELECT gender from students where id = {$this->id} LIMIT 1";
+    $this->gender = 'gender';
 
-  }
-
-  public function listHOD() {
-
-  }
-
-  public function listDepartments() {
-
-  }
-
-  public function listDepartmentHOD() {
-    
+    return $this->gender();
   }
 
 }
