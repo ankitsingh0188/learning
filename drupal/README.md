@@ -1,4 +1,8 @@
 # Drupal
+* Drupal is a Content Management System (CMS).
+* It’s an open source content and free CMS framework written in PHP.
+* It enables us to organize, manage and publish content with ease and comes 
+  with a variety of customization option.
 
 ## Table of contents
 - [Bootsrap Process](#bootsrap-process)
@@ -188,12 +192,7 @@ A content delivery network (CDN) refers to a geographically distributed group of
     * Implement the ContainerFactoryPluginInterface interface
     * Implement ContainerFactoryPluginInterface::create()
     * Override __construct():
-        * making sure to call parent::__construct(), then store the service          in a property of the class
-
-## Plugin
-* The Drupal 8 Plugin API allows a module or subsystem to provide functionality (plugin instances) in an object-oriented way.
-* Plugins are small pieces of functionality that are swappable. Plugins that perform similar functionality are of the same plugin type.
-  
+        * making sure to call parent::__construct(), then store the service          in a property of the class  
 
 ## Multilingual guide
 * Locale (Interface Translation) module: Translates the built-in user interface, your added modules and themes.
@@ -232,8 +231,8 @@ A patch is a file that contains a list of differences between one set of files, 
 * It helps the developers to write code in the easier way. It is like a data access layer that uses a unified API. 
 * Drupal provides a database abstraction layer, which helps the developer to work easily with multi-database servers. 
 * It is used to preserve the syntax and power of SQL and to work with complex functionality. 
-* It provides a defined interface for dynamic queries with using security checks and good practices. 
-* This process is developed at the top of the PDO database API.
+* It provides a defined interface for dynamic queries with using security
+  checks and good practices.
 
 ## Hooks
 Hooks allow modules to alter and extend the behavior of Drupal core, or another module.
@@ -256,7 +255,7 @@ Singleton Design pattern is used in Drupal.
 * Twig 1 => 2
 * Symphony 3 => 4
 * PHP(7.3)
-* Mysql (5.7), Postgre SQL(9.6), SQLite(3.26), MariaDB(10.2)
+* Mysql (5.7.8), Postgre SQL(10.0), SQLite(3.6.8), MariaDB(10.3+)
 * DRUSH 10
 
 ## Design Patterns
@@ -346,7 +345,7 @@ SELECT FROM customView
 
 ##### MYSQL vs MYSQLI
 * MySQL extension added in PHP version 2.0. and deprecated as of PHP 5.5.0
-* MySQLi extension added in PHP 5.5
+* MySQLi extension added in PHP 5.5.0
 
 * MySQLi supports prepared statements.
 
@@ -371,9 +370,9 @@ immediately and returns an error.
 ```
 
 ##### Transaction (aliases: BEGIN or  BEGIN WORK), Rollback, Commit
-Enable autocommit: SET autocommit
-SET autocommit = 0 = SET autocommit = OFF
-SET autocommit = 1= SET autocommit = ON
+* Enable autocommit: SET autocommit
+    * SET autocommit = 0; SET autocommit = OFF
+    * SET autocommit = 1; SET autocommit = ON
 
 ```mysql based
 -- 1. start a new transaction
@@ -431,12 +430,18 @@ COMMIT;
     ```text
       Composer json vs lock
     ```
-    * composer. json file is a rough guide to the dependency versions that Composer should install, while he composer. lock file is an exact record of the dependency versions that have been installed.
+    * composer. json file is a rough guide to the dependency versions that
+     Composer should install, while he composer. lock file is an exact record
+      of the dependency versions that have been installed.
 
     ```text
       Composer install vs update
    ```
-    * Running the composer install uses the composer. lock file, which now has the “lock” on all packages you have installed on the project. ... In the case of composer update , it does not use the lock file, instead it uses the composer. json file and updates the packages(if updates have been released in the last 3 months).
+    * Running the composer install uses the composer. lock file, which now
+     has the “lock” on all packages you have installed on the project. ... In
+      the case of composer update , it does not use the lock file, instead it
+       uses the composer. json file and updates the packages(if updates have
+        been released in the last 3 months).
 
     ```text
       Composer tild vs caret
@@ -444,3 +449,60 @@ COMMIT;
     * ~1.2 is equivalent to >=1.2 <2.0.0, while ~1.2.3 is 
       equivalent to >=1.2.3 <1.3.0
     * ^1.2.3 is equivalent to >=1.2.3 <2.0.0
+
+##### Plugins
+* Plugins are small pieces of functionality that are swappable. Plugins that perform similar functionality are of the same plugin type.
+
+##### Constraints
+* MySQL CONSTRAINT is used to define rules to allow or restrict what values
+  can be stored in columns. The purpose of inducing constraints is to enforce
+  the integrity of a database.
+* MySQL CONSTRAINT are used to limit the type of data that can be inserted
+  into a table.
+* MySQL CONSTRAINTs are: NOT NULL, UNIQUE KEY, PRIMARY KEY, FORIEGN KEY etc...
+
+##### ElasticSearch
+* Stable version : 7.5.0
+* Latest JDK 8 or Java version 1.8.0 is recommended
+* A node is an instance of Elasticsearch
+* Elasticsearch cluster: It is a group of one or more node instances
+* Elasticsearch cluster can contain multiple indices,
+    * these indices contain multiple Types (Tables)
+    * these types contain multiple Documents (records/rows)
+    * these documents contain Properties (columns)
+
+##### Redis
+* Redis is an advanced key-value data store and cache.
+* It has is also referred to as a data structure server as such the keys not
+  only contains strings, but also hashes, sets, lists, and sorted sets. 
+* It provides high speed
+* It supports a server-side locking
+* It has got lots of client lib
+
+##### REST API (Representational state transfer)
+* An API is an application programming interface. It is a set of rules that
+  allow programs to talk to each other. The developer creates the API on the
+  server and allows the client to talk to it.
+* REST determines how the API looks like. It stands for “Representational
+  State Transfer”. It is a set of rules that developers follow when they
+  create their API. One of these rules states that you should be able to get
+  a piece of data (called a resource) when you link to a specific URL.
+* Each URL is called a request while the data sent back to you is called a
+  response.
+  * The Anatomy Of A Request
+    1. The endpoint
+    2. The method
+    3. The headers
+    4. The data (or body)
+* SOAP (Simple Object Access Protocol) VS REST
+    * Style: Protocol => Architectural Style
+    * Data Format: XML => JSON, CSV, XML, HTML, Plain Text
+    * Security: SSL => SSL & HTTPS 
+    * Bandwith: Requires more resources and bandwidth => fewer resources and
+      light weight
+    * Data Cache: Cannot be cached => can be cached
+    
+##### Layouts Builder Vs Panels
+Panels is about choosing a layout and working with that specific layout,
+ where layout builder gives you an option to add layout in forms of section
+ on various parts of the page. 
