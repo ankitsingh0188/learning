@@ -29,10 +29,10 @@
 12. Terminate the request (modules can act upon this event).
 
 ## Differentiate Drupal 8 from Drupal 7
-1. New Theme Engine: Drupal 8 comes with a new theme engine –Twig.
-2. Text Editor: Unlike Drupal 7, Drupal 8 comes with a new text editor — CKEditor.
-3. Field Types: Drupal 8 supports several new field types — date, email, telephone, link and reference.
-4. Quick Edit Module: While using Drupal 7, developers lack the option to edit content directly from the website’s frontend. But Drupal 8 comes with a new module — quick edit. The module allows users to make changes to the content directly from the website’s frontend.
+1. New Theme Engine: Drupal 8 comes with a new theme engine - Twig.
+2. Text Editor: Unlike Drupal 7, Drupal 8 comes with a new text editor - CKEditor.
+3. Field Types: Drupal 8 supports several new field types - date, email, telephone, link and reference.
+4. Quick Edit Module: While using Drupal 7, developers lack the option to edit content directly from the website’s frontend. But Drupal 8 comes with a new module - quick edit. The module allows users to make changes to the content directly from the website’s frontend.
 5. Built-in Configuration Management: Drupal 8 comes with built-in configuration management. As the configuration management is implemented at the file-system level, it becomes easier for developers to move fields, views, content type, and similar configuration elements from the local development environment to the web server.
 6. Enhanced Website Accessibility: Unlike Drupal 7, Drupal 8 allows developers to use HTML5 natively. Hence, it becomes easier for developers to build responsive websites accessible on both computers and mobile devices. 
 7. Framework: Drupal 8 has Symfony framework, which makes it powerful.
@@ -72,7 +72,6 @@ In Drupal 8 speak, a service is any object managed by the services container. Dr
 * tags: A name to identify groups of services.
 
 ## Caching
-By default, Drupal 8 comes with 2 modules for implementing caching-
 * **Internal Page Caching:** Stores the complete page information even if the user visiting the site hasn’t logged in.
 * **Internal Dynamic Page Cache:** Cache small sections of each page for all users whether they are logged in or not. Whenever the page content is requested by the same or different user, the module can pull in those individual parts to speed up the building of the page on the fly.
 
@@ -145,3 +144,303 @@ By default, Drupal 8 comes with 2 modules for implementing caching-
     * Complex to learn.
     * If overused can lead to management issues other problems.
     * Many compile time errors are pushed to run-time.
+
+## OPcache
+OPcache is a type of caching system that saves precompiled script bytecode in a server’s memory called a cache, so each time a user visits a web page, it loads faster.
+
+## Varnish
+Varnish Cache is a web application accelerator also known as a caching HTTP reverse proxy. Can speed up page load performance by a factor of 10-1000x
+
+## Memcache
+* Drupal doesn’t support Memcache by default, and for this, we need to install it on the server.
+* Developers often come across a situation where they are required to reduce database load by caching DB objects in RAM.
+* Here Memcache improves Drupal application performance by moving standard caches out of the database and by caching the results of other expensive database operations.
+
+## CDN
+A content delivery network (CDN) refers to a geographically distributed group of servers which work together to provide fast delivery of Internet content.
+
+## Drush
+* DRUSH is a shell interface for managing Drupal.
+* Drush core ships with lots of useful commands for interacting with code like modules/themes/profiles. 
+* Similarly, it runs update.php, executes sql queries and DB migrations, and misc utilities like run cron or clear cache.
+
+## Entity
+* Entity Type: Way of grouping like Entities together. They share some properties but in case they differ as well. Like only nodes have title and user have username. All of them have unique id.
+    * Node
+    * User
+    * File
+    
+* Bundle: Are implementations of an entity type to which fields can be attached. Eg: Content types (Node Types). 
+    * Some entity type have single bundle like User and some of them do not have bundle like File. 
+    * Bundles are subtype of an entity and without bundle you cannot attached fields.
+    * Bundles are like collection of fields applied to an entity.
+
+* Property: Are pieces of information, that are the same for all entities of a given entity type regardless of bundle. Eg: Title
+
+* Field: Bits of information and configurable according to the bundles. Without bundles we cannot create fields.
+
+* Entity: Is like discrete piece of data of a specied entity type with a set of common properties and type specific properties if you have bundles.
+
+## Blocks
+* Blocks are individual & configurable pieces of code that can be rendered anywhere on your Drupal website.
+* Block that require a Drupal service or a custom service should access the service using dependency injection.
+* Dependency Injection(DI):
+    * Implement the ContainerFactoryPluginInterface interface
+    * Implement ContainerFactoryPluginInterface::create()
+    * Override __construct():
+        * making sure to call parent::__construct(), then store the service          in a property of the class
+
+## Plugin
+* The Drupal 8 Plugin API allows a module or subsystem to provide functionality (plugin instances) in an object-oriented way.
+* Plugins are small pieces of functionality that are swappable. Plugins that perform similar functionality are of the same plugin type.
+  
+
+## Multilingual guide
+* Locale (Interface Translation) module: Translates the built-in user interface, your added modules and themes.
+                                         
+* Content Translation module:
+    * Allow users to translate content entities.
+    * Allows you to translate your site content, including pages, taxonomy terms, blocks, etc., into different languages.
+    
+## Field Formatter
+* The field formatter formats the field data to be viewed by the end user.
+Field formatters are defined as plugins.
+
+* Field formatter class: src/Plugin/Field/FieldFormatter/RandomDefaultFormatter.php extends Drupal\Core\Field\FormatterBase
+
+... settingsSummary
+
+... viewElements
+
+* Formatter Settings: If your formatter needs custom display settings, there are three steps required to achieve this:
+    * Override PluginSettingsBase::defaultSettings() in order to set the defaults.
+    * Create the configuration schema for the settings you've created: ```[MODULE ROOT]/config/schema/[MODULE_NAME].schema.yml```
+    * Create a form to allow users to change the settings.
+
+* Dependency Injection(DI): Dependency Injection in Field Formatters requires three steps
+    * Implement the ContainerFactoryPluginInterface interface
+    * Implement ContainerFactoryPluginInterface::create()
+    * Override FormatterBase::__construct(): 
+        * Override __construct() on FormatterBase
+        * making sure to call parent::__construct(), then store the service          in a property of the class
+          
+## Patch
+A patch is a file that contains a list of differences between one set of files, and another.  Through patches, all the changes in code like additions or deletions to Drupal core can be made.
+
+## PDO
+* PDO means PHP Data Object; it is a lean and consistent way to access databases.
+* It helps the developers to write code in the easier way. It is like a data access layer that uses a unified API. 
+* Drupal provides a database abstraction layer, which helps the developer to work easily with multi-database servers. 
+* It is used to preserve the syntax and power of SQL and to work with complex functionality. 
+* It provides a defined interface for dynamic queries with using security checks and good practices. 
+* This process is developed at the top of the PDO database API.
+
+## Hooks
+Hooks allow modules to alter and extend the behavior of Drupal core, or another module.
+
+## Clean URLs
+* In Drupal 8, 'Clean URLs' are enabled by default and can't be disabled.
+* ```domain.com?q=node/1``` => ```domain.com/node/1```
+
+## Which Design Pattern used in Drupal?
+Singleton Design pattern is used in Drupal.
+   
+## What is a taxonomy in Drupal?
+* Taxonomy, a powerful core module, gives your sites use of the organizational keywords known in other systems as categories, tags, or metadata.
+* It is used to classify the content of the website.
+
+## Drupal 8 VS 9
+* CKEDITOR 5 in 9.x
+* Layout Builder
+* Big Pipe (rendering main content)
+* Twig 1 => 2
+* Symphony 3 => 4
+* PHP(7.3)
+* Mysql (5.7), Postgre SQL(9.6), SQLite(3.26), MariaDB(10.2)
+* DRUSH 10
+
+## Design Patterns
+Design patterns are typical solutions to commonly occurring problems in software design. They are like pre-made blueprints that you can customize to solve a recurring design problem in your code.
+* Creational Design Patterns: Creational patterns provide various object creation mechanisms, which increase flexibility and reuse of existing code.
+
+* Structural Design Patterns: Structural patterns explain how to assemble objects and classes into larger structures while keeping these structures flexible and efficient.
+
+* Behavioral Design Patterns: Behavioral design patterns are concerned with algorithms and the assignment of responsibilities between objects.
+  
+
+## Mysql
+##### Engines
+* MyIsam: Allowed Index Types -> BTREE
+* InnoDB (default) -> supports transaction, row level locking and foreign key concept. Allowed Index Types -> BTREE
+
+##### Primary vs Unique vs Foreign key
+* Primary key
+    * can have only 1 primary key
+    * supports auto increment value
+    * cannnot accept NULL values
+    * primary key behave as foreign key into another table
+    * By default, Primary key is clustered index
+    
+* Unique key
+    * can have more than 1 unique key
+    * does not supports auto increment value
+    * can accept only ONE NULL value
+    * unique key does not behave as foreign key into another table
+    * By default, Unique key is non-clustered index
+
+* Foreign key
+    * Foreign key is a field in the table that is Primary key in another table.
+    * Foreign key can accept multiple null value.
+    * Foreign key do not automatically create an index.
+    * We can have more than one foreign key in a table..
+    * Having a null foreign key is usually a bad idea instead of NULL  referred to as "orphan record".
+
+##### Indexes
+* A database index is a data structure that improves the speed of operations in a table.
+* Indexes can be created using one or more columns.
+* Default 16 indexes per table.
+
+```mysql based
+INDEX(column_name)
+
+CREATE INDEX index_id ON table_name(column_name);
+
+SHOW INDEXES FROM table_name;
+
+DROP INDEX `index_id` ON `table_name`;
+
+EXPLAIN SELECT query
+```
+
+* Default select statement will scan the whole table, while if we add EXPLAIN in the select statement then it will only scan the required keys.
+
+
+##### Procedure
+* A procedure (often called a stored procedure) is a subroutine like a subprogram in a regular computing language, stored in database. A procedure has a name, a parameter list, and SQL statement(s). Almost all relational database system supports stored procedure, MySQL 5 introduce stored procedure.
+* Stored procedures are fast. MySQL server takes some advantage of caching
+* The main speed gain comes from reduction of network traffic.
+* Stored procedures are portable.
+* By definition, a stored procedure is a segment of declarative SQL statements
+
+```mysql based
+CREATE PROCEDURE customProcedure()
+BEGIN
+SQL STATEMENT
+
+CALL customProcedure();
+```
+
+##### Views
+* By definition, a view is a named query stored in the database catalog.
+
+```mysql based
+CREATE VIEW customView AS  SQL Statement
+SELECT FROM customView
+```
+* You can reference the view as a table in SQL statements
+* Note that a view does not physically store the data.
+
+##### Difference b/w Views & Procedure
+* View is used when only a SELECT statement is needed
+* Stored procedures hold the more complex logic, such as INSERT, DELETE, and UPDATE
+
+##### MYSQL vs MYSQLI
+* MySQL extension added in PHP version 2.0. and deprecated as of PHP 5.5.0
+* MySQLi extension added in PHP 5.5
+
+* MySQLi supports prepared statements.
+
+* MySQL provides the procedural interface.	
+* MySQLi provides both procedural and object-oriented interface.
+
+* MySQLi supports store procedure.
+
+* MySQLi extension is with enhanced security and improved debugging.
+
+* MySQLi supports transactions through API.
+* Transactions are handled by SQL queries only.
+
+* MySQLi function mysqli_query() allows to enforce error prone queries and prevents bugs like SQL injection
+* MySQLi API allows executing multiple queries with single expression using multi_query() function.
+
+```
+A deadlock in MySQL happens when two or more transactions mutually hold 
+and request for locks, creating a cycle of dependencies. InnoDB
+automatically detects transaction deadlocks, rollbacks a transaction
+immediately and returns an error. 
+```
+
+##### Transaction (aliases: BEGIN or  BEGIN WORK), Rollback, Commit
+Enable autocommit: SET autocommit
+SET autocommit = 0 = SET autocommit = OFF
+SET autocommit = 1= SET autocommit = ON
+
+```mysql based
+-- 1. start a new transaction
+START TRANSACTION;
+
+-- 2. Get the latest order number
+SELECT 
+    @orderNumber:=MAX(orderNUmber)+1
+FROM
+    orders;
+
+-- 3. insert a new order for customer 145
+INSERT INTO orders(orderNumber,
+                   orderDate,
+                   requiredDate,
+                   shippedDate,
+                   status,
+                   customerNumber)
+VALUES(@orderNumber,
+       '2005-05-31',
+       '2005-06-10',
+       '2005-06-11',
+       'In Process',
+        145);
+        
+-- 4. Insert order line items
+INSERT INTO orderdetails(orderNumber,
+                         productCode,
+                         quantityOrdered,
+                         priceEach,
+                         orderLineNumber)
+VALUES(@orderNumber,'S18_1749', 30, '136', 1),
+      (@orderNumber,'S18_2248', 50, '55.09', 2); 
+      
+-- 5. commit changes    
+COMMIT;
+```
+
+##### GIT PULL
+* git pull fetches the latest changes of the current branch from a remote and applies those changes to your local copy of the branch.
+* Generally this is done by merging, i.e. the local changes are merged into the remote changes. So git pull is similar to git fetch & git merge.
+
+##### GIT REBASE
+* Rebasing is an alternative to merging.
+* The local changes you made will be rebased on top of the remote changes, instead of being merged with the remote changes.
+
+
+##### Composer
+* Composer is a tool for dependency management in PHP.
+
+* Composer is not a package manager, it will install the packages/libraries on the basis of project in a directory called vendor.
+
+* Composer requires PHP 5.3.2+ to run
+
+    ```text
+      Composer json vs lock
+    ```
+    * composer. json file is a rough guide to the dependency versions that Composer should install, while he composer. lock file is an exact record of the dependency versions that have been installed.
+
+    ```text
+      Composer install vs update
+   ```
+    * Running the composer install uses the composer. lock file, which now has the “lock” on all packages you have installed on the project. ... In the case of composer update , it does not use the lock file, instead it uses the composer. json file and updates the packages(if updates have been released in the last 3 months).
+
+    ```text
+      Composer tild vs caret
+    ```
+    * ~1.2 is equivalent to >=1.2 <2.0.0, while ~1.2.3 is 
+      equivalent to >=1.2.3 <1.3.0
+    * ^1.2.3 is equivalent to >=1.2.3 <2.0.0
