@@ -4,8 +4,8 @@ function interpolationSearch($array, $k) {
 	$low = 0;
 	$high = sizeof($array) - 1;
 	while ($low <= $high and $k >= $array[$low] and $k <= $array[$high]) {
-		if ($l == $h) {
-			if ($arr[$l] == $x) {
+		if ($low == $high) {
+			if ($array[$low] == $k) {
 				return 1; 
 			}
 

@@ -8,7 +8,7 @@ namespace Model\School;
  * @package Model\School
  */
 interface Person {
-  public function name();
-  public function age();
-  public function gender();
+  public function getName();
+  public function getAge();
+  public function getGender();
 }

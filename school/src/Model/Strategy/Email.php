@@ -2,14 +2,14 @@
 
 namespace Model\Strategy;
 
-use Model\Strategy\Strategy;
+use Model\Strategy\InterfaceStrategy;
 
 /**
  * Class Email
  *
- * @package Model\Strategy
+ * @package Model\InterfaceStrategy
  */
-class Email implements Strategy {
+class Email implements InterfaceStrategy {
 
   /**
    * @var string
@@ -38,7 +38,7 @@ class Email implements Strategy {
    * @return mixed|void
    */
   public function message($email) {
-    print 'Email Strategy';
+    print 'Email InterfaceStrategy';
   }
 
 }

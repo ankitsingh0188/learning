@@ -41,7 +41,6 @@ class Student implements Person {
    */
   private $gender;
 
-
   /**
    * Database object.
    *
@@ -186,7 +185,7 @@ class Student implements Person {
     from students AS st
     LEFT JOIN schools AS sc ON st.school_id = sc.id
     LEFT JOIN classes AS cl ON st.class_id = cl.id
-    WHERE st.id = {$this->id}";
+    WHERE st.id = {$this->id} LIMIT 1";
     try {
       $result = $this->db->query($query);
     }

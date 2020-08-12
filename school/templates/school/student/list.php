@@ -2,9 +2,8 @@
 Helper\Helper::validateSession();
 $list_students = [];
 $school = new Model\School\School();
-$school_info = $school->fetchSchoolInfoByStudentId();
-if ($school_info) {
-  $student = new Model\School\Student();
+if ($school_info = $school->fetchSchoolInfoByStudentId()) {
+  $student = Model\School\StudentFactory::create();
   $list_students = $student->listStudentsBySchool($school_info['id']);
 }
 ?>

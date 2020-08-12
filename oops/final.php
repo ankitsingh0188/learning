@@ -17,7 +17,7 @@ class Kunal extends Srijan {
 
   // Method overriding
   public function add(int $a, int $b) {
-    return $a * $b;
+    return $a + $b;
   }
 
 }

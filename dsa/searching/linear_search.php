@@ -23,4 +23,4 @@ function linearSearch($array, $k) {
 
 $array = [11, 20, 44, 23, 5, 45, 3, 65];
 $k = 45;
-print binarySearch($array, $k);
+print linearSearch($array, $k);

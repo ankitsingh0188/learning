@@ -1,10 +1,14 @@
 <?php
 class Animals {
+
+  public function __clone() {
+  }
+
 	public $name;
 	public $category;
 }
 
-//Creating instance of Animals class
+// Creating instance of Animals class
 $objAnimals = new Animals();
 //setting properties
 $objAnimals->name = "Lion";
@@ -21,6 +25,6 @@ $objCloned->name = "Elephant";
 $objCloned->category = "Wild Animal";
 
 print '<pre>';
-print_r($objAnimals);
-print_r($objCopied);
-print_r($objCloned);
+print_r($objAnimals); // Cat Pet Animal
+print_r($objCopied); // Cat Pet Animal
+print_r($objCloned); // Elephant Wild Animal

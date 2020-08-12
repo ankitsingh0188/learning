@@ -10,21 +10,24 @@ class SchoolTest extends TestCase {
    */
   private $school;
 
-  //  Run when test case starts.
+  // Run when test case starts.
   protected function setUp(): void {
     $this->school = new School();
   }
 
-  //  Run when test case ends.
+  // Run when test case ends.
   protected function tearDown(): void {
    $this->school = NULL;
   }
 
   public function testListSchools() {
-    $test_array = $this->school->listSchools();
-    foreach ($test_array as $item) {
-      $this->assertArrayHasKey('name', $item, 'Key does not exist.') ;
-    }
+    $mock_array = [
+      'name' => 'Ankit',
+      'age' => 31,
+      'gender' => 'male'
+    ];
+    $school_array = $this->school->listSchools();
+    $this->assertEquals($mock_array, $school_array, 'Array mismatch.') ;
   }
 
 }

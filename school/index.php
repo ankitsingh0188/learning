@@ -2,7 +2,6 @@
 session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/autoload.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
-
 // Create a new router instance.
 $router = new Routes\Routes($_SERVER);
 // Prepare routes array.
@@ -22,6 +21,7 @@ $routes = [
   'profile' => 'templates/school/student/dashboard.php',
   'student-update' => 'templates/school/student/edit.php',
 ];
+
 $router->prepareRoutes($routes);
 
 include __DIR__ . '/templates/footer.php';

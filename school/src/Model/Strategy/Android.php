@@ -2,14 +2,14 @@
 
 namespace Model\Strategy;
 
-use Model\Strategy\Strategy;
+use Model\Strategy\InterfaceStrategy;
 
 /**
  * Class Android
  *
- * @package Model\Strategy
+ * @package Model\InterfaceStrategy
  */
-class Android implements Strategy {
+class Android implements InterfaceStrategy {
 
   /**
    * @var string
@@ -39,7 +39,11 @@ class Android implements Strategy {
    */
   public function message($number) {
     // $this->to
-    print 'Android Strategy';
+    print 'Android InterfaceStrategy';
+  }
+
+  public function send() {
+
   }
 
 }

@@ -1,8 +1,7 @@
 <?php
 Helper\Helper::validateSession();
-$student = new Model\School\Student();
-$student->setStudentId($_SESSION['uid']);
-$info = $student->fetchStudentInfoById();
+$student = Model\School\StudentFactory::create();
+$info = $student->setStudentId($_SESSION['uid'])->fetchStudentInfo();
 if ($_POST && $_POST['submit'] == 'student_update') {
   unset($_POST['submit']);
   $_POST = array_map('trim', array_filter($_POST));

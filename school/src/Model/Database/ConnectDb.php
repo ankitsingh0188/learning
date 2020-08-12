@@ -8,17 +8,17 @@ final class ConnectDb {
   /**
    * @var \Model\Database\ConnectDb|null $instance
    */
-  private static ?ConnectDb $instance = NULL;
+  private static $instance = NULL;
 
   /**
    * Gets the instance via lazy initialization (created on first usage)
    */
   public static function getInstance(): ConnectDb {
-    if (static::$instance === NULL) {
-      static::$instance = new static();
+    if (self::$instance === NULL) {
+      self::$instance = new self();
     }
 
-    return static::$instance;
+    return self::$instance;
   }
 
   /**
@@ -27,7 +27,6 @@ final class ConnectDb {
    * ConnectDb::getInstance() instead
    */
   private function __construct() {
-
   }
 
   /**
@@ -35,7 +34,6 @@ final class ConnectDb {
    * instance of it)
    */
   private function __clone() {
-
   }
 
   /**
@@ -43,7 +41,6 @@ final class ConnectDb {
    * it)
    */
   private function __wakeup() {
-
   }
 
   /**
